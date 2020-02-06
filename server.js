@@ -1,15 +1,16 @@
 'use strict';
 
-var express = require('express');
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
+let express = require('express');
+let mongo = require('mongodb');
+let mongoose = require('mongoose');
 
-var cors = require('cors');
+let cors = require('cors');
+let bodyParser = require('body-parser');
 
-var app = express();
+let app = express();
 
 // Basic Configuration 
-var port = process.env.PORT || 3000;
+let port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
 // mongoose.connect(process.env.MONGOLAB_URI);
@@ -33,5 +34,5 @@ app.get("/api/hello", function (req, res) {
 
 
 app.listen(port, function () {
-  console.log('Node.js listening ...');
+  console.log('Node.js listening ... on port ' + port);
 });
