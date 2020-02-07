@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dns = require('dns');
+const url = require('url');
 
 const app = express();
 
@@ -15,7 +16,7 @@ let port = process.env.PORT || 3000;
 /** this project needs a db !! **/ 
 mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true }, (err) => {
   if (err) throw err;
-  console.log(mongoose.connection.readyState);
+  console.log('MongoDB is connecting, con state: ' + mongoose.connection.readyState);
 });
 app.use(cors());
 
@@ -48,5 +49,5 @@ app.post("/api/shorturl/new", function (req, res) {
 });
 
 app.listen(port, function () {
-  console.log('Node.js listening ... on port ' + port);
+  console.log('Node.js is listening ... on port ' + port);
 });
