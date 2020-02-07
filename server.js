@@ -32,10 +32,16 @@ app.post("/api/shorturl/new", function (req, res) {
   let url = req.body.url;
   
   // invalid url
-  dns.lookup('google.com', (err) => {
-    res.json({error: "invalid URL"});
+  dns.lookup('freecodecamp.org', (err) => {
+    if (err) {
+      // host name invalid
+      console.error(err);
+      res.json({error: "invalid URL"});
+    } else {
+      res.json({origin_url: url});
+    }
   });
-  res.json({origin_url: url});
+  
 });
 
 app.listen(port, function () {
