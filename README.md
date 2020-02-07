@@ -15,6 +15,7 @@ POST [project_url]/api/shorturl/new - body (urlencoded) :  url=https://www.googl
 #### Usage:
 
 [this_project_url]/api/shorturl/71688ae4
+Demo: https://url-shortener-microservice-po.glitch.me/api/shorturl/71688ae4
 
 #### Will redirect to:
 
