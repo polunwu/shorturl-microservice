@@ -38,12 +38,12 @@ app.post("/api/shorturl/new", function (req, res) {
   
   // validate url
   dns.lookup(reqURL.hostname, (err) => {
-    if (err) {
+    if (err || reqURL.hostname === null) {
       // host name invalid
       console.error(err);
       res.json({error: "invalid URL"});
     } else {
-      res.json({hostname: reqURL.hostname, origin_url: reqURL.href});
+      res.json({hostname: reqURL.hostname, origin_url: reqURL.hostname + reqURL.path});
     }
   });
   
