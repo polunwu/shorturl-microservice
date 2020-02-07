@@ -1,12 +1,13 @@
 'use strict';
 
-let express = require('express');
-let mongo = require('mongodb');
-let mongoose = require('mongoose');
-let cors = require('cors');
-let bodyParser = require('body-parser');
+const express = require('express');
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const dns = require('dns');
 
-let app = express();
+const app = express();
 
 // Basic Configuration 
 let port = process.env.PORT || 3000;
@@ -29,6 +30,11 @@ app.get('/', function(req, res){
 // API endpoint... 
 app.post("/api/shorturl/new", function (req, res) {
   let url = req.body.url;
+  
+  // invalid url
+  dns.lookup('google.com', (err) => {
+    res.json({error: "invalid URL"});
+  });
   res.json({origin_url: url});
 });
 
