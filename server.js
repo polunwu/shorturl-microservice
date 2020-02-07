@@ -33,16 +33,17 @@ app.get('/', function(req, res){
   
 // API endpoint... 
 app.post("/api/shorturl/new", function (req, res) {
-  let url = req.body.url;
+  let reqURL = url.parse(req.body.url);
+  console.log(reqURL);
   
-  // invalid url
-  dns.lookup('freecodecamp.org', (err) => {
+  // validate url
+  dns.lookup(reqURL.hostname, (err) => {
     if (err) {
       // host name invalid
       console.error(err);
       res.json({error: "invalid URL"});
     } else {
-      res.json({origin_url: url});
+      res.json({hostname: reqURL.hostname, origin_url: reqURL.href});
     }
   });
   
