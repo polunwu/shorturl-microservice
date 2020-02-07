@@ -86,7 +86,7 @@ app.post("/api/shorturl/new", function(req, res) {
 });
 
 app.get("/api/shorturl/:short_url", function(req, res){
-  
+  console.log(req.params.short_url);
 });
 
 app.listen(port, function() {
