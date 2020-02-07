@@ -10,7 +10,7 @@ const url = require('url');
 const shortHash = require('short-hash');
 
 const app = express();
-const Schema = mongoose.schema;
+const Schema = mongoose.Schema;
 
 // Basic Configuration 
 let port = process.env.PORT || 3000;
@@ -32,6 +32,14 @@ app.get('/', function(req, res){
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+
+// Create SCHEMA & MODEL
+let urlSchema = new Schema({
+  url: String,
+  hash: String
+});
+let Url = mongoose.model('Url', urlSchema);
+
   
 // API endpoint... 
 app.post("/api/shorturl/new", function (req, res) {
@@ -47,7 +55,16 @@ app.post("/api/shorturl/new", function (req, res) {
       res.json({error: "invalid URL"});
     } else {
       // valid
-      res.json({hostname: originURL.hostname, origin_url: originURL.href});
+      Url.find({url: originURL.href})
+         .then((err, data) => {
+            if (err) throw err;
+            console.log(data);
+          }).catch((err) => console.error(err));
+      
+      res.json({
+        hostname: originURL.hostname, 
+        origin_url: originURL.href
+      });
     }
   });
   
