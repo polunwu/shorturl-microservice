@@ -45,6 +45,7 @@ let urlSchema = new Schema({
   hash: String
 });
 let Url = mongoose.model("Url", urlSchema);
+Url.index({url: 1, hash: 1});
 
 // API endpoint...
 app.post("/api/shorturl/new", function(req, res) {
@@ -87,6 +88,14 @@ app.post("/api/shorturl/new", function(req, res) {
 
 app.get("/api/shorturl/:short_url", function(req, res){
   console.log(req.params.short_url);
+  Url.findOne({hash: req.params.short_url})
+     .then((doc, err) => {
+        if (!doc) {
+          res.json({ error: "invalid URL" });
+        } else {
+          res.redirect(doc.url);
+        }
+     }).catch(err => console.error("error:", err));
 });
 
 app.listen(port, function() {
