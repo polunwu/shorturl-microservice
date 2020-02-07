@@ -62,7 +62,7 @@ app.post("/api/shorturl/new", function(req, res) {
       Url.findOne({ url: originURL.href })
         .then((doc, err) => {
           if (err) throw err;
-          if (doc === undefined) {
+          if (!doc) {
             Url.create({
               url: originURL.href,
               hash: shortHash(originURL.href)
@@ -73,7 +73,7 @@ app.post("/api/shorturl/new", function(req, res) {
               });
             });
           } else {
-            // url doc has already created
+            // url document has already created
             res.json({
               origin_url: doc.url,
               short_url: doc.hash
@@ -83,6 +83,10 @@ app.post("/api/shorturl/new", function(req, res) {
         .catch(err => console.error("error:", err));
     }
   });
+});
+
+app.get("/api/shorturl/:short_url", function(req, res){
+  
 });
 
 app.listen(port, function() {
