@@ -7,6 +7,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const dns = require('dns');
 const url = require('url');
+const shortHash = require('short-hash');
 
 const app = express();
 const Schema = mongoose.schema;

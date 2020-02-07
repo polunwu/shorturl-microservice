@@ -4,6 +4,7 @@ dependencies:
   express: 5.0.0-alpha.7
   mongodb: 3.5.2
   mongoose: 5.8.11
+  short-hash: 1.0.0
 packages:
   /accepts/1.3.7:
     dependencies:
@@ -228,6 +229,10 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
+  /hash-string/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-w/oV8Hjd0WvBULQXb95wkWIPLH8=
   /http-errors/1.6.3:
     dependencies:
       depd: 1.1.2
@@ -602,6 +607,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw==
+  /short-hash/1.0.0:
+    dependencies:
+      hash-string: 1.0.0
+    dev: false
+    resolution:
+      integrity: sha1-P0kdco/Md37GBbuvf4PyNxL0IFA=
   /sift/7.0.1:
     dev: false
     resolution:
@@ -681,3 +692,4 @@ specifiers:
   express: ^5.0.0-alpha.2
   mongodb: ^3.5.2
   mongoose: ^5.8.11
+  short-hash: ^1.0.0
