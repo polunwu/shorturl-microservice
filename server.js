@@ -13,7 +13,10 @@ const app = express();
 let port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
-mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true }, (err) => {
+  if (err) throw err;
+  console.log(mongoose.connection.readyState);
+});
 app.use(cors());
 
 /** this project needs to parse POST bodies **/
