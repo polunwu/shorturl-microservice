@@ -9,6 +9,7 @@ const dns = require('dns');
 const url = require('url');
 
 const app = express();
+const Schema = mongoose.schema;
 
 // Basic Configuration 
 let port = process.env.PORT || 3000;
@@ -23,9 +24,9 @@ app.use(cors());
 /** this project needs to parse POST bodies **/
 // you should mount the body-parser here
 app.use(bodyParser.urlencoded({extended: false}));
-
+// use staitc files
 app.use('/public', express.static(process.cwd() + '/public'));
-
+// root endpoint
 app.get('/', function(req, res){
   res.sendFile(process.cwd() + '/views/index.html');
 });
@@ -34,18 +35,18 @@ app.get('/', function(req, res){
 // API endpoint... 
 app.post("/api/shorturl/new", function (req, res) {
   // parse req url string into Node Url object
-  let reqURL = url.parse(req.body.url);
-  console.log(reqURL);
+  let originURL = url.parse(req.body.url);
+  console.log(originURL);
   
   // hostname, url validation
-  dns.lookup(reqURL.hostname, (err) => {
-    if (err || reqURL.hostname === null) {
+  dns.lookup(originURL.hostname, (err) => {
+    if (err || originURL.hostname === null) {
       // host name invalid
       console.error(err);
       res.json({error: "invalid URL"});
     } else {
       // valid
-      res.json({hostname: reqURL.hostname, origin_url: reqURL.href});
+      res.json({hostname: originURL.hostname, origin_url: originURL.href});
     }
   });
   
