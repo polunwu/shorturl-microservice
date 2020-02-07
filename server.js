@@ -61,26 +61,24 @@ app.post("/api/shorturl/new", function(req, res) {
     } else {
       // valid
       Url.findOne({ url: originURL.href })
-        .then((err, doc) => {
+        .then((doc, err) => {
           if (err) throw err;
           if (doc === undefined) {
             console.log("no such doc");
             Url.create({
               url: originURL.href,
               hash: shortHash(originURL.href)
-            }).then((err, created) => {
+            }).then(created => {
               console.log(created);
             });
           } else {
-            console.log("already exist");
+            res.json({
+              origin_url: doc.url,
+              short_url: doc.hash
+            });
           }
         })
-        .catch(err => console.error(err));
-
-      res.json({
-        hostname: originURL.hostname,
-        origin_url: originURL.href
-      });
+        .catch(err => console.error('error:', err));
     }
   });
 });
