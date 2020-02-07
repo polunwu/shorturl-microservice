@@ -56,29 +56,31 @@ app.post("/api/shorturl/new", function(req, res) {
   dns.lookup(originURL.hostname, err => {
     if (err || originURL.hostname === null) {
       // host name invalid
-      console.error(err);
       res.json({ error: "invalid URL" });
     } else {
-      // valid
+      // host name valid
       Url.findOne({ url: originURL.href })
         .then((doc, err) => {
           if (err) throw err;
           if (doc === undefined) {
-            console.log("no such doc");
             Url.create({
               url: originURL.href,
               hash: shortHash(originURL.href)
             }).then(created => {
-              console.log(created);
+              res.json({
+                origin_url: created.url,
+                short_url: created.hash
+              });
             });
           } else {
+            // url doc has already created
             res.json({
               origin_url: doc.url,
               short_url: doc.hash
             });
           }
         })
-        .catch(err => console.error('error:', err));
+        .catch(err => console.error("error:", err));
     }
   });
 });
