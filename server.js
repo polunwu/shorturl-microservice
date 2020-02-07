@@ -40,12 +40,12 @@ app.get("/", function(req, res) {
 });
 
 // Create SCHEMA & MODEL
-let urlSchema = new Schema({
+const urlSchema = new Schema({
   url: String,
   hash: String
 });
-let Url = mongoose.model("Url", urlSchema);
-Url.index({url: 1, hash: 1});
+const Url = mongoose.model("Url", urlSchema);
+Url.createIndexes({url: 1, hash: 1});
 
 // API endpoint...
 app.post("/api/shorturl/new", function(req, res) {
