@@ -55,10 +55,16 @@ app.post("/api/shorturl/new", function (req, res) {
       res.json({error: "invalid URL"});
     } else {
       // valid
-      Url.find({url: originURL.href})
-         .then((err, data) => {
+      Url.findOne({url: originURL.href})
+         .then((err, doc) => {
             if (err) throw err;
-            console.log(data);
+            if (!!doc){
+              return Url.create({
+                
+              })
+            } else {
+              
+            }
           }).catch((err) => console.error(err));
       
       res.json({
