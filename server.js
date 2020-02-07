@@ -28,7 +28,8 @@ app.get('/', function(req, res){
   
 // API endpoint... 
 app.post("/api/shorturl/new", function (req, res) {
-  
+  let url = req.body.url;
+  res.json({origin_url: url});
 });
 
 app.listen(port, function () {
